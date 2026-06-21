@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { getProductBySku, isValidCategory } from "@/lib/data";
 
 interface ProductDetailPageProps {
@@ -29,7 +30,7 @@ export default async function ProductDetailPage({
 
     const product = await getProductBySku(sku);
 
-    if (!product || product.category !== category) {
+    if (!product || product.category.toLowerCase() !== category.toLowerCase()) {
         return (
             <main className="flex min-h-screen flex-col items-center justify-center px-4 text-center">
                 <h1 className="text-xl font-semibold text-gray-800">
@@ -44,8 +45,30 @@ export default async function ProductDetailPage({
 
     return (
         <main className="min-h-screen bg-gray-50">
-            {/* Product image — fixed to roughly 1/4 of the viewport height */}
-            <div className="relative h-[25vh] w-full bg-white">
+            {/* Top gap + back arrow */}
+            <div className="relative h-12 w-full bg-white">
+                <Link
+                    href={`/aisle/${category}`}
+                    aria-label="Back to category"
+                    className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full p-2 text-gray-700 transition hover:bg-gray-100"
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="h-6 w-6"
+                    >
+                        <path d="M15 18l-6-6 6-6" />
+                    </svg>
+                </Link>
+            </div>
+
+            {/* Product image — pushed down a bit further, shadow separates it from the page below */}
+            <div className="relative mt-[1cm] h-[25vh] w-full bg-white shadow-md">
                 <Image
                     src={product.imageUrl}
                     alt={product.name}
@@ -59,11 +82,11 @@ export default async function ProductDetailPage({
             <div className="px-4 py-5">
                 {/* Price */}
                 <p className="text-2xl font-bold text-emerald-700">
-                    ${product.price.toFixed(2)}
+                    ₹{product.price.toFixed(2)}
                 </p>
                 {product.showOldPrice && product.oldPrice !== undefined && (
                     <p className="text-sm text-gray-400 line-through">
-                        ${product.oldPrice.toFixed(2)}
+                        ₹{product.oldPrice.toFixed(2)}
                     </p>
                 )}
 
