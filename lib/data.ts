@@ -32,6 +32,10 @@ interface CustomerFacingItem {
   new_price: number;
   show_old_price: boolean;
   image_url: string;
+  description?: string;
+  protein?: string;
+  carbohydrate?: string;
+  calories?: string;
 }
 
 // Categories this app knows how to render. Kept here (not derived from the
@@ -54,6 +58,10 @@ function mapToProduct(item: CustomerFacingItem): Product {
     daysUntilExpiry: Math.round(item.time_to_expire),
     oldPrice: item.show_old_price ? item.old_price : undefined,
     showOldPrice: item.show_old_price,
+    description: item.description,
+    protein: item.protein,
+    carbs: item.carbohydrate,
+    calories: item.calories,
   };
 }
 
@@ -89,6 +97,38 @@ export async function getProducts(category: string): Promise<Product[]> {
   } catch (err) {
     console.error("Failed to fetch products:", err);
     return [];
+  }
+}
+
+/**
+ * Returns a single product by SKU, used by the product detail page
+ * (/aisle/[category]/[sku]). Calls the FastAPI single-item endpoint
+ * directly rather than fetching the whole category and filtering, so a
+ * detail page never needs to load more data than it shows.
+ *
+ * Returns null if the SKU doesn't exist or the request fails, so the
+ * page can render a clean "product not found" state.
+ */
+export async function getProductBySku(sku: string): Promise<Product | null> {
+  if (!API_BASE_URL) {
+    console.error("NEXT_PUBLIC_API_BASE_URL is not set");
+    return null;
+  }
+
+  try {
+    const res = await fetch(`${API_BASE_URL}/customer-items/${sku}`, {
+      next: { revalidate: 60 },
+    });
+
+    if (!res.ok) {
+      return null;
+    }
+
+    const json: { success: boolean; data: CustomerFacingItem } = await res.json();
+    return mapToProduct(json.data);
+  } catch (err) {
+    console.error("Failed to fetch product:", err);
+    return null;
   }
 }
 

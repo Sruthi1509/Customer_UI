@@ -8,4 +8,8 @@ export interface Product {
   daysUntilExpiry?: number;
   oldPrice?: number;
   showOldPrice?: boolean;
+  description?: string;
+  protein?: string;
+  carbs?: string;
+  calories?: string;
 }

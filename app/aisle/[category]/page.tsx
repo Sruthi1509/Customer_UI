@@ -3,10 +3,7 @@ import AisleView from "@/components/AisleView";
 
 interface AislePageProps {
   params: Promise<{ category: string }>;
-}
-
-// Banner image + alt text per category. Kept here (not in lib/data.ts)
-// since this is presentational config, not product data.
+} 
 const bannerConfig: Record<string, { imageUrl: string; alt: string }> = {
   meat: {
     imageUrl:
@@ -20,14 +17,6 @@ const bannerConfig: Record<string, { imageUrl: string; alt: string }> = {
   },
 };
 
-/**
- * Server component for a single aisle category, e.g. /aisle/meat.
- *
- * This route renders ONLY the data for its own `category` param. There is
- * no shared navigation, tabs, or links to other categories anywhere in this
- * file or the components it renders — a customer landing here via QR code
- * has no way to reach any other /aisle/[category] route.
- */
 export default async function AislePage({ params }: AislePageProps) {
   const { category } = await params;
 
@@ -56,4 +45,4 @@ export default async function AislePage({ params }: AislePageProps) {
       />
     </main>
   );
-} 
+}
