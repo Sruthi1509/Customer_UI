@@ -4,12 +4,21 @@ import SearchBar from "./SearchBar";
 interface AdBannerProps {
   imageUrl: string;
   alt: string;
+  searchValue: string;
+  onSearchChange: (value: string) => void;
 }
 
 /**
- * Full-width advertisement banner with a centered search bar overlay.
+ * Full-width advertisement banner with a centered, controlled search bar
+ * overlay. The search value/handler are passed through from the parent
+ * (AisleView), which owns the filtering logic.
  */
-export default function AdBanner({ imageUrl, alt }: AdBannerProps) {
+export default function AdBanner({
+  imageUrl,
+  alt,
+  searchValue,
+  onSearchChange,
+}: AdBannerProps) {
   return (
     <div className="relative h-48 w-full sm:h-64">
       <Image
@@ -21,7 +30,7 @@ export default function AdBanner({ imageUrl, alt }: AdBannerProps) {
         className="object-cover"
       />
       <div className="absolute inset-0 flex items-center justify-center bg-black/20 px-4">
-        <SearchBar />
+        <SearchBar value={searchValue} onChange={onSearchChange} />
       </div>
     </div>
   );

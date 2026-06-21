@@ -1,6 +1,5 @@
 import { getProducts, isValidCategory } from "@/lib/data";
-import AdBanner from "@/components/AdBanner";
-import ProductGrid from "@/components/ProductGrid";
+import AisleView from "@/components/AisleView";
 
 interface AislePageProps {
   params: Promise<{ category: string }>;
@@ -50,8 +49,11 @@ export default async function AislePage({ params }: AislePageProps) {
 
   return (
     <main className="min-h-screen bg-gray-50">
-      <AdBanner imageUrl={banner.imageUrl} alt={banner.alt} />
-      <ProductGrid products={products} />
+      <AisleView
+        products={products}
+        bannerImageUrl={banner.imageUrl}
+        bannerAlt={banner.alt}
+      />
     </main>
   );
-}
+} 

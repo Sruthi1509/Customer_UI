@@ -12,13 +12,13 @@ interface ProductCardProps {
 export default function ProductCard({ product }: ProductCardProps) {
   return (
     <div className="flex flex-col overflow-hidden rounded-xl bg-white shadow-sm ring-1 ring-gray-100">
-      <div className="relative h-32 w-full sm:h-40">
+      <div className="relative h-32 w-full bg-gray-50 p-2 sm:h-40">
         <Image
           src={product.imageUrl}
           alt={product.name}
           fill
           sizes="(max-width: 640px) 50vw, 25vw"
-          className="object-cover"
+          className="object-contain"
         />
       </div>
 
@@ -32,8 +32,14 @@ export default function ProductCard({ product }: ProductCardProps) {
         </h3>
 
         <p className="mt-auto text-center text-lg font-bold text-emerald-700">
-          ₹{product.price.toFixed(2)}
+          ${product.price.toFixed(2)}
         </p>
+
+        {product.showOldPrice && product.oldPrice !== undefined && (
+          <p className="text-center text-xs text-gray-400 line-through">
+            ${product.oldPrice.toFixed(2)}
+          </p>
+        )}
       </div>
     </div>
   );

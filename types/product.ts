@@ -6,4 +6,6 @@ export interface Product {
   imageUrl: string;
   category: string;
   daysUntilExpiry?: number;
+  oldPrice?: number;
+  showOldPrice?: boolean;
 }

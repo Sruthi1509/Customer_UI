@@ -1,26 +1,25 @@
-"use client";
-
-import { useState } from "react";
-
 interface SearchBarProps {
+  value: string;
+  onChange: (value: string) => void;
   placeholder?: string;
 }
 
 /**
- * Standalone, reusable, controlled search input.
- * Purely presentational/local-state for now — there is no product search
- * logic wired up since this is a read-only display, but the input is kept
- * controlled so it can be extended later without restructuring.
+ * Standalone, reusable, controlled search input. Holds no state of its own —
+ * the parent owns `value` and reacts to `onChange`, so this component can be
+ * reused anywhere a controlled text input with a search icon is needed.
  */
-export default function SearchBar({ placeholder = "Search products" }: SearchBarProps) {
-  const [value, setValue] = useState("");
-
+export default function SearchBar({
+  value,
+  onChange,
+  placeholder = "Search products",
+}: SearchBarProps) {
   return (
     <div className="flex w-full max-w-md items-center rounded-full bg-white px-4 py-2 shadow-md">
       <input
         type="text"
         value={value}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
         className="flex-1 bg-transparent text-sm text-gray-700 outline-none placeholder:text-gray-400"
         aria-label="Search products"
