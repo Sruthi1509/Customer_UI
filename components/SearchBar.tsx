@@ -15,7 +15,7 @@ export default function SearchBar({
   placeholder = "Search products",
 }: SearchBarProps) {
   return (
-    <div className="flex w-full max-w-md items-center rounded-full bg-white px-4 py-2 shadow-md">
+    <div className="flex w-full max-w-md items-center rounded-full bg-white px-4 py-2 shadow-lg">
       <input
         type="text"
         value={value}

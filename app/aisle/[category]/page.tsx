@@ -3,16 +3,16 @@ import AisleView from "@/components/AisleView";
 
 interface AislePageProps {
   params: Promise<{ category: string }>;
-} 
+}
 const bannerConfig: Record<string, { imageUrl: string; alt: string }> = {
   meat: {
     imageUrl:
-      "https://images.unsplash.com/photo-1602470520998-f4a52199a3d6?w=1200&q=80",
+      "/images/meat-banner.png",
     alt: "Fresh meat aisle advertisement banner",
   },
   bakery: {
     imageUrl:
-      "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=1200&q=80",
+      "/images/bakery-banner.png",
     alt: "Fresh bakery aisle advertisement banner",
   },
 };
