@@ -38,12 +38,12 @@ export default function ProductCard({ product }: ProductCardProps) {
         </h3>
 
         <p className="mt-auto text-center text-lg font-bold text-emerald-700">
-          ₹{product.price.toFixed(2)}
+          ${product.price.toFixed(2)}
         </p>
 
         {product.showOldPrice && product.oldPrice !== undefined && (
           <p className="text-center text-xs text-gray-400 line-through">
-            ₹{product.oldPrice.toFixed(2)}
+            ${product.oldPrice.toFixed(2)}
           </p>
         )}
       </div>

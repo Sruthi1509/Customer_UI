@@ -82,11 +82,11 @@ export default async function ProductDetailPage({
             <div className="px-4 py-5">
                 {/* Price */}
                 <p className="text-2xl font-bold text-emerald-700">
-                    ₹{product.price.toFixed(2)}
+                    ${product.price.toFixed(2)}
                 </p>
                 {product.showOldPrice && product.oldPrice !== undefined && (
                     <p className="text-sm text-gray-400 line-through">
-                        ₹{product.oldPrice.toFixed(2)}
+                        ${product.oldPrice.toFixed(2)}
                     </p>
                 )}
 
